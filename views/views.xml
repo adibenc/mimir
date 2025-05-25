@@ -1,0 +1,123 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="mimir.list">
+      <field name="name">mimir list</field>
+      <field name="model">mimir.hosts</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="ip"/>
+          <field name="username"/>
+          <field name="vendor"/>
+          <field name="owner"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="base_hosts_aw">
+      <field name="name">Hosts</field>
+      <field name="res_model">mimir.hosts</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_host_form" model="ir.ui.view">
+      <field name="name">Host Form</field>
+      <field name="model">mimir.hosts</field>
+      <field name="arch" type="xml">
+        <!-- form -->
+        <form class="o_form_document">
+          <sheet>
+            <field name="id" invisible="1"/>
+            <div class="oe_title">
+                <label for="name" class="oe_edit_only"/>
+                <h1>
+                    <field name="name"/>
+                </h1>
+            </div>
+            <group>
+            </group>
+            <separator/>
+            <group>
+              <group>
+                <field name="ip"/>
+                <field name="ports"/>
+                <field name="username"/>
+                <field name="gateway"/>
+                <field name="subnet"/>
+                <field name="parent"/>
+              </group>
+              <group>
+                <field name="pic"/>
+                <field name="vendor"/>
+                <field name="vendor_pic"/>
+                <field name="owner"/>
+                <field name="owner_pic"/>
+              </group>
+            </group>
+            <hr/>
+            <group>
+              <group>
+                <field name="internal_note"/>
+                <field name="tag"/>
+                <field name="os"/>
+                <field name="project"/>
+              </group>
+              <group>
+                <field name="cpu"/>
+                <field name="ram"/>
+                <field name="disk"/>
+              </group>
+            </group>
+            <group>
+                <group>
+                    <field name="create_uid" readonly="1"/>
+                    <field name="write_uid" readonly="1"/>
+                </group>
+                <group>
+                    <field name="create_date" readonly="1"/>
+                    <field name="write_date" readonly="1"/>
+                </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids"/>
+              <field name="activity_ids"/>
+              <field name="message_ids"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="Base OM" 
+      id="menu_network_man1"
+      sequence="1"
+      action="base_hosts_aw"
+      />
+    <menuitem
+        id="menu_base_net"
+        name="Hosts"
+        parent="mimir.menu_network_man1"
+        action="base_hosts_aw"
+        sequence="99"
+    />
+
+    <menuitem
+      id="model_mi1"
+      name="mi1"
+      parent="mimir.menu_network_man1"
+      sequence="10"/>
+      
+      <!-- 
+      parent="mimir"
+      web_icon="mimir,static/description/pt-tsbm-sq100.png" 
+      -->
+    
+  </data>
+</odoo>
